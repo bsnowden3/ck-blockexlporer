@@ -8,13 +8,8 @@ const txsRoute = require('./routes/txs');
 
 const app = express();
 
-const dbName = 'mongodb://localhost/mean-app';
-
-mongoose.connect(dbName, { useNewUrlParser: true });
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/images', express.static(path.join('backend/images')));
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', "*");
