@@ -1,10 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require("mongoose");
-const path = require('path');
 
-const blocksRoute = require('./routes/blocks');
-const txsRoute = require('./routes/txs');
+const blockRoute = require('./routes/block');
+const txRoute = require('./routes/tx');
 
 const app = express();
 
@@ -18,7 +16,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/blocks/', blocksRoute);
-app.use('/api/txs/', txsRoute);
+app.use('/api/block/', blockRoute);
+app.use('/api/tx/', txRoute);
 
 module.exports = app;

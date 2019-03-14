@@ -1,13 +1,20 @@
 const express = require('express');
-
-const rpc_client = require('../helpers/rpc');
-
 const router = express.Router();
+
+// const rpc_client = require('../helpers/rpc');
+
+var rpc = require('json-rpc2');
+const port = 8383;
+const host = 'localhost';
+const rpcUser = 'ckrpc';
+const rpcPassword = '843nOA1TtdWwUTULGBCVZUND/ideVZl6Dnqj5mqYBbU=';
+
+const rpc_client = rpc.Client.$create(port, host, rpcUser, rpcPassword);
 
 router.get('/:txid', (req, res, next) => {
   rpc_client.call('gettransaction', {id: req.params.txid},
     (err, rpcRes) => {
-      if (err) {
+      if (err || rpcRes == null) {
         console.log(err);
         res.status(403).json({
           message: 'RPC error',
@@ -29,7 +36,7 @@ router.get('/:txid', (req, res, next) => {
 router.get('', (req, res, next) => {
   rpc_client.call('listtransactions', {},
     (err, rpcRes) => {
-      if (err) {
+      if (err || rpcRes == null) {
         console.log(err);
         res.status(403).json({
           message: 'RPC error', 
